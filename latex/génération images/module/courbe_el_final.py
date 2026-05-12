@@ -1,28 +1,9 @@
+#from module.el_gamal import inv_mod
 from random import randint
 import subprocess
 import numbers
 import platform
-
-
-# Provide a local modular inverse to avoid circular imports.
-# Prefer the built-in `pow(..., -1, mod)` when available; fall back
-# to extended Euclid for older Python versions or if pow fails.
-def inv_mod(e, p):
-    e = e % p
-    try:
-        return pow(e, -1, p)
-    except TypeError:
-        def egcd(a, b):
-            if b == 0:
-                return 1, 0, a
-            x, y, g = egcd(b, a % b)
-            return y, x - (a // b) * y, g
-        x, y, g = egcd(e, p)
-        if g != 1:
-            raise ValueError(f"{e} isn't invertible mod {p}")
-        return x % p
-    except ValueError:
-        raise ValueError(f"{e} isn't invertible mod {p}")
+from module.el_gamal import inv_mod
 
 class CourbeElliptique:
     def __init__(self, a, b, c, o):
@@ -63,10 +44,11 @@ class CourbeElliptique:
             rhs = (self.f(x)) % self.o
             ls = self.legendre_symbol(rhs)
             if ls == 1:
-                count += 2 
+                count += 2  # deux solutions pour y
             elif ls == 0:
-                count += 1  
-        return count + 1  
+                count += 1  # une solution pour y
+            # ls == -1 => aucune solution
+        return count + 1  # ajouter le point à l'infini
     
     
     def nombre_points_subprocess(self):
@@ -263,7 +245,7 @@ def point_ordre_max(l,CE):
     return point
 
 
-def find_points(c):
+def find_points(c,n=10000):
     l = []
     for x in range(c.o):
         for y in range(c.o):
@@ -271,7 +253,7 @@ def find_points(c):
                 print(f"Point trouvé : ({x},{y})")
                 p = Point(x,y,c)
                 l.append(p)
-            if len(l) > 10000:
+            if len(l) > n:
                 return l
     return l
 

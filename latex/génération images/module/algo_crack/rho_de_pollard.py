@@ -8,6 +8,7 @@ def rho_de_pollard_CE(alpha, beta):
         raise ValueError("ordre(alpha) = 0 (point à l'infini)")
 
     n = ordre(alpha.CE)
+    #n = alpha.CE
     
 
     a = randint(0, n-1)
@@ -78,8 +79,8 @@ def crack_point_rho_de_pollard(message_chiffre,pk):
     print(s)
     return decryptage(message_chiffre,s)
 
-'''
-CEstand = CourbeElliptique(2,0,2,6482753)
+
+'''CEstand = CourbeElliptique(2,0,2,6482753)
 1000000363
 s = randint(0,CEstand.o - 1)
 print("clé secrète :",s)

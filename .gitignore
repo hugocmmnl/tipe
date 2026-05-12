@@ -26,3 +26,6 @@ __pycache__/
 *$py.class
 *.so
 .Python
+.venv
+.vscode/
+.pytest_cache

@@ -1,8 +1,6 @@
 # Cryptographie sur les courbes elliptiques
 
-# Messagerie 
-
-L'objectif de cette partie est de mettre en place un système complet d'encryption et de décryption utilisant le cryptosystème d'Elgamal avec un groupe cyclique construit sur des courbes elltiptiques.
+Travail issu d'un TIPE réalisé en classe de MP au lycée Chateaubriand en 2025-2026 sur le thème "cycles et boucles".
 
 ### Prérequis
 Modules python nécessaires : 
@@ -13,6 +11,10 @@ Modules python nécessaires :
 ~~~
 pip install -r requirements.txt
 ~~~
+
+# Messagerie 
+
+L'objectif de cette partie est de mettre en place un système complet d'encryption et de décryption utilisant le cryptosystème d'Elgamal avec un groupe cyclique construit sur des courbes elltiptiques.
 
 ## Utilisation rapide : 
 Executer le fichier "messagerie\interface.py"
@@ -34,13 +36,21 @@ Initialiser une courbe elliptique de la forme y² = x³ + ax² + bx + c mod o :
 ```
 CE = CourbeElliptique( a, b, c, o)  
 ```
- Récupérer une liste de points d'une courbe :
+Récupérer une liste de points d'une courbe :
 ```
 l = find_points(CE)
 ```    
-Initialiser un points d'une courbe elliptique : 
+Initialiser un fichiers de points :
+```
+trouve_points(CE)
+```
+Initialiser un point d'une courbe elliptique : 
 ```
 P = Point(x,y,CE)
+```
+Récupérer un point au hasard : 
+```
+P = point_random(CE)
 ```
 Créer un clé publique :
 ```
@@ -78,7 +88,7 @@ Algorithme rho de Pollard :
 ``` 
 P_décrypté = crack_point_rho_de_pollard(P_crypté,cle_publique)
 ``` 
-# Etude comparative des algorithmes :
+# Etude comparative des algorithmes 
 
 ## Mise en place de nouvelles courbes :
 
@@ -89,7 +99,7 @@ creationCE(b,c,o,ordre=None,nb_points=30000,cyclique=True, a = 0)
 
 Calcul des point d'une courbe elliptique d'ordre premier dans les bornes données : 
 ~~~
-trouve_CE_viable(a,b,min,max,nb_points=30000,cyclique=True)
+trouve_CE_viable(b,c,min,max,nb_points=30000,cyclique=True,a = 0)
 ~~~ 
 ## Utilisation rapide :
 
@@ -109,7 +119,7 @@ Même calcul mais on enregistre les résultats sous forme dans un fichier csv au
 temps_moyen, u_temps = crack_perfCE_csv(CE, algo, N, progress_callback=None, workers=None, update_plot=True)
 ~~~
 
-## Analyse des données 
+## Analyse des données :
 
 Mise à jour du graphique résumant les calculs :
 ~~~
@@ -124,5 +134,15 @@ fit_log_power_law(x, y)
 Prédiction du temps de calcul : 
 ~~~
 predict_time_for_order(order, method='brute', script_dir=script_dir)
+~~~
+
+Représentation graphique des courbes elliptiques :
+~~~
+plot_ce(CE,n=10000,save = True)
+~~~
+
+Représentation graphique des courbes elliptiques modulaires :
+~~~
+plot_ce_mod(CE,n=10000,save = True)
 ~~~
 
